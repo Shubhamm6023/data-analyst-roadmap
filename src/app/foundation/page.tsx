@@ -1,39 +1,8 @@
 import Link from "next/link";
+import { foundationModules } from "@/data/foundation";
 
 export default function Foundation() {
-  const modules = [
-    {
-      title: "Module A: Computer Fundamentals",
-      description: "Basics of computer, OS, files, internet and cybersecurity",
-      lessons: [
-        { id: 1, title: "What is a Computer?", hindi: "???????? ???? ???", status: "pending" },
-        { id: 2, title: "Hardware vs Software", hindi: "????????? ???? ?????????", status: "pending" },
-        { id: 3, title: "Operating Systems", hindi: "???????? ??????", status: "pending" },
-        { id: 4, title: "Files and Folders", hindi: "?????? ?? ????????", status: "pending" },
-        { id: 5, title: "Internet & Browser", hindi: "??????? ?? ????????", status: "pending" },
-      ]
-    },
-    {
-      title: "Module B: Mathematics Foundation",
-      description: "Number system, arithmetic, percentages, graphs and statistics basics",
-      lessons: [
-        { id: 6, title: "Number System", hindi: "?????? ??????", status: "pending" },
-        { id: 7, title: "Arithmetic Operations", hindi: "?????? ??????????", status: "pending" },
-        { id: 8, title: "Percentage", hindi: "???????", status: "pending" },
-        { id: 9, title: "Ratio and Proportion", hindi: "?????? ?? ????????", status: "pending" },
-        { id: 10, title: "Mean, Median, Mode", hindi: "?????, ????????, ?????", status: "pending" },
-      ]
-    },
-    {
-      title: "Module C: English Foundation",
-      description: "Technical vocabulary for Data Analytics",
-      lessons: [
-        { id: 11, title: "Data Analytics Vocabulary", hindi: "???? ?????????? ????????", status: "pending" },
-        { id: 12, title: "Reading Documentation", hindi: "????????? ?????", status: "pending" },
-        { id: 13, title: "Understanding Error Messages", hindi: "?????? ????? ?????", status: "pending" },
-      ]
-    }
-  ];
+  const modules = foundationModules;
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
@@ -68,23 +37,28 @@ export default function Foundation() {
             </div>
             <div className="space-y-3">
               {module.lessons.map((lesson) => (
-                <div key={lesson.id} className="card p-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-8 h-8 rounded-full border-2 flex items-center justify-center" style={{ borderColor: 'var(--border)' }}>
-                      <span className="text-sm">{lesson.id}</span>
+                <Link key={lesson.id} href={`/lesson/${lesson.id}`}>
+                  <div className="card p-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-8 h-8 rounded-full border-2 flex items-center justify-center" style={{ borderColor: 'var(--border)' }}>
+                        <span className="text-sm">{lesson.id}</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>{lesson.title}</h3>
+                        <p className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>{lesson.hindi}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>{lesson.title}</h3>
-                      <p className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>{lesson.hindi}</p>
+                    <div className="flex items-center space-x-2">
+                      {lesson.duration && (
+                        <span className="text-xs" style={{ color: 'var(--foreground-secondary)' }}>{lesson.duration}</span>
+                      )}
+                      <span className="text-sm px-2 py-1 rounded-full" style={{ background: 'var(--border)', color: 'var(--foreground-secondary)' }}>Not Started</span>
+                      <svg className="w-5 h-5" style={{ color: 'var(--foreground-secondary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm px-2 py-1 rounded-full" style={{ background: 'var(--border)', color: 'var(--foreground-secondary)' }}>Not Started</span>
-                    <svg className="w-5 h-5" style={{ color: 'var(--foreground-secondary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
